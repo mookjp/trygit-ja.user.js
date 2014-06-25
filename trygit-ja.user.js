@@ -150,25 +150,48 @@ var docs25 = '\
 <p>さあこれで、最後のステップです。あなたがここまで出来たこと、そしてあなたと一緒にGitを学べたことをとても誇らしく思っています。あとは、あなたが行ったすべての作業をリモートリポジトリへpushするのみです。それで完了です！</p>\
 <p><code class="input">git push</code></p>';
 
+var lastInstruction = '\
+<p>すばらしい！今回あなたは、Gitのすばらしさを少し味わえたかと思います。GitやGithubについてのもう少し詳しい情報をまとめた修了ページを見てみてください。ああ、そしてもちろんあなたのバッジもです！</p>\
+<p><a href="https://try.github.io/wrap_up" class="button">修了する</a></p>';
 
+var currentChapter = "1";
+
+// Update instructions when the page get forward, get backward or get reloaded.
 function updateDocuments() {
     var chapter = window.location.pathname.split('/').pop();
-
+    
     var header = document.getElementsByTagName('h1')[0];
     var instructions = document.getElementById('instructions');
 
     header.innerHTML = eval('header' + chapter);
     instructions.innerHTML = eval('docs' + chapter);
+    currentChapter = chapter;
 }
 
-var target = document.getElementById('challenge-objective');
+// Update instructions as "final instruction".
+// As this instruction does not have the unique url,
+// updating functions are separated from normal one.
+function updateToFinal() {
+    var instructions = document.getElementById('instructions');
+    instructions.innerHTML = lastInstruction;
+}
 
+// Set observer to update instruction when the page moved.
+var target = document.getElementById('challenge-objective');
 var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
-        console.log(mutation.type);
+        
+        if (currentChapter == "25") {
+            updateToFinal();
+            return;
+        }
         updateDocuments();
     });
 });
+observer.observe(target, { attributes: false,
+    childList: true,
+    characterData: false });
 
-observer.observe(target, { attributes: false, childList: true, characterData: true });
+// Traslate the page when the window is loaded first time.
 updateDocuments();
+
