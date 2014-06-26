@@ -192,6 +192,10 @@ observer.observe(target, { attributes: false,
     childList: true,
     characterData: false });
 
+window.addEventListener("onStateChange", "stateChanged");
+function stateChanged(e) {
+    console.log(e);
+}
 // Traslate the page when the window is loaded first time.
 updateDocuments();
 

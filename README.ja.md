@@ -3,6 +3,8 @@ trygit-ja.user.js
 
 [Code School - Try Git](https://try.github.io/)を日本語に翻訳するGoogle Chrome用のUser scriptです。
 
+![](./images/ss.png)
+
 ## 使い方
 
 `trygit-ja.user.js` を、Google Chromeの `chrome://extensions`
